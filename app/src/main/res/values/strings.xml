@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Service</string>
+    <string name="auth_failed">User not created</string>
+    <string name="sign_failed">User doesn\'t exist</string>
+    <string name="send_new_password">Message send to this email</string>
+    <string name="not_send_new_password">message not send</string>
+    <string name="empty_email">Enter email address!</string>
+    <string name="empty_password">Enter password!</string>
+    <string name="short_password">Password too short, enter minimum 6 characters!</string>
+    <string name="empty_name">empty name</string>
+    <string name="empty_surname">empty surname</string>
+    <string name="not_equals_passwords">Пароли не совпадают!</string>
+    <string name="user_created">Пользователь создан</string>
+    <string name="wrong_password">Неверный логин или пароль</string>
+</resources>
