@@ -27,7 +27,9 @@ public class ProfileFragment extends Fragment {
      * Имя и фамилия.
      */
     private TextView mUserNameTextView;
-
+    /**
+     * Ссылка на базу данных.
+     */
     private DatabaseReference mDatabase;
     @Override
     public void onCreate(Bundle savedInstanceState) {
