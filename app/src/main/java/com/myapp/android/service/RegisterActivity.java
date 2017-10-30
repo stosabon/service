@@ -1,5 +1,6 @@
 package com.myapp.android.service;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,33 +64,27 @@ public class RegisterActivity extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 final String email = mEmail.getText().toString().trim();
                 final String password = mPassword.getText().toString().trim();
                 String repeatPassword = mRepeatPassword.getText().toString().trim();
                 final String name = mName.getText().toString().trim();
                 final String surname = mSurname.getText().toString().trim();
-
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), R.string.empty_email, Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), R.string.empty_password, Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), R.string.short_password, Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (TextUtils.isEmpty(name)) {
                     Toast.makeText(getApplicationContext(), R.string.empty_name, Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (TextUtils.isEmpty(surname)) {
                     Toast.makeText(getApplicationContext(), R.string.empty_surname, Toast.LENGTH_SHORT).show();
                     return;
@@ -111,8 +106,11 @@ public class RegisterActivity extends AppCompatActivity {
                                     mAuth.signInWithEmailAndPassword(email, password);
                                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                                     String position = "users/" + currentUser.getUid().toString();
-                                    User user = new User(name + " " + surname);
+                                    User user = new User(name + " " + surname, mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getEmail());
                                     mDatabase.child(position).setValue(user);
+                                    Intent intent = new Intent(RegisterActivity.this, ProfileActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
                                 }
                             }
                         });

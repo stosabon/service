@@ -33,11 +33,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-
 
 import static android.app.Activity.RESULT_OK;
 import static com.myapp.android.service.EnterActivity.TAG;
@@ -107,7 +102,6 @@ public class ProfileFragment extends Fragment {
 
         if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK) {
             uploadImageToFirebaseStorage(data.getData());
-            setAvatarFromFirebaseStorage();
         }
     }
 
@@ -125,7 +119,14 @@ public class ProfileFragment extends Fragment {
             public void onFailure(@NonNull Exception exception) {
                 Log.d(TAG, "Изображение не загрузилось в хранилище");
             }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d(TAG, "Изображение загрузилось в хранилище");
+                setAvatarFromFirebaseStorage();
+            }
         });
+
     }
 
     /**
@@ -147,12 +148,13 @@ public class ProfileFragment extends Fragment {
     }
 
     /**
-     * Метод для установки аватара пользоавтеля
+     * Метод для установки аватара пользователя.
      */
     private void setAvatarFromFirebaseStorage() {
         Glide.with(getActivity())
                 .using(new FirebaseImageLoader())
                 .load(mStorageRef.child(mAuth.getCurrentUser().getUid() + "/avatar"))
                 .into(mAvatarImage);
+        Log.d(TAG, "Изображение изменено");
     }
 }

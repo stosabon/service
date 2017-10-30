@@ -58,7 +58,7 @@ public class EnterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter);
         mAuth = FirebaseAuth.getInstance();
-
+        //mAuth.signOut();
         checkUser(mAuth.getCurrentUser());
 
         mSignUpButton = (Button) findViewById(R.id.signup_button);

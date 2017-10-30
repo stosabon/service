@@ -1,5 +1,6 @@
 package com.myapp.android.service;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import static com.myapp.android.service.EnterActivity.mAuth;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -70,9 +73,13 @@ public class ProfileActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_sign_out :
+                mAuth.signOut();
+                Intent intent = new Intent(ProfileActivity.this, EnterActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -93,7 +100,17 @@ public class ProfileActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return new ProfileFragment();
+            switch (position) {
+                case 0:
+                    return new ProfileFragment();
+                case 1:
+                    //return new ProfileFragment();
+                    return new ContactFragment();
+                case 2:
+                    return new ProfileFragment();
+                    //return new ContactFragment();
+            }
+            return null;
         }
 
         @Override
@@ -108,9 +125,9 @@ public class ProfileActivity extends AppCompatActivity {
                 case 0:
                     return "Профиль";
                 case 1:
-                    return "SECTION 2";
+                    return "Сообщения";
                 case 2:
-                    return "SECTION 3";
+                    return "Услуги";
             }
             return null;
         }
