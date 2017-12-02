@@ -1,4 +1,4 @@
-package com.myapp.android.service;
+package com.myapp.android.service.model;
 
 import android.net.Uri;
 import android.widget.ImageView;

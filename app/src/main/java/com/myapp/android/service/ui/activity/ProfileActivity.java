@@ -1,4 +1,4 @@
-package com.myapp.android.service;
+package com.myapp.android.service.ui.activity;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -11,15 +11,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import android.widget.TextView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.myapp.android.service.ui.fragment.ChatFragment;
+import com.myapp.android.service.ui.fragment.ContactFragment;
+import com.myapp.android.service.ui.fragment.ProfileFragment;
+import com.myapp.android.service.R;
 
-import static com.myapp.android.service.EnterActivity.mAuth;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -37,6 +37,10 @@ public class ProfileActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    /**
+     * Экземпляр firebase auth.
+     */
+    public FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         switch (id) {
             case R.id.action_sign_out :
+                mAuth = FirebaseAuth.getInstance();
                 mAuth.signOut();
                 Intent intent = new Intent(ProfileActivity.this, EnterActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -105,9 +110,9 @@ public class ProfileActivity extends AppCompatActivity {
                     return new ProfileFragment();
                 case 1:
                     //return new ProfileFragment();
-                    return new ContactFragment();
+                    return new ChatFragment();
                 case 2:
-                    return new ProfileFragment();
+                    return new ContactFragment();
                     //return new ContactFragment();
             }
             return null;

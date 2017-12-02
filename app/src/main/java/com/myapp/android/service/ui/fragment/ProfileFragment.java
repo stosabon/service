@@ -1,11 +1,7 @@
-package com.myapp.android.service;
+package com.myapp.android.service.ui.fragment;
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -14,31 +10,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.myapp.android.service.R;
+import com.myapp.android.service.ui.activity.EnterActivity;
 
 
 import static android.app.Activity.RESULT_OK;
-import static com.myapp.android.service.EnterActivity.TAG;
-import static com.myapp.android.service.EnterActivity.mAuth;
+import static com.myapp.android.service.ui.activity.EnterActivity.TAG;
 
 public class ProfileFragment extends Fragment {
+    /**
+     * Экземпляр firebase auth.
+     */
+    public FirebaseAuth mAuth;
     /**
      * RESULT CODE для выбора изображения.
      */
@@ -99,8 +97,9 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK) {
+            Log.d(EnterActivity.TAG, data.getData().getPath());
+            //Log.d(EnterActivity.TAG, data.getData().toString());
             uploadImageToFirebaseStorage(data.getData());
         }
     }
@@ -110,6 +109,7 @@ public class ProfileFragment extends Fragment {
      * @param uriImage - выбранное изображение
      */
     private void uploadImageToFirebaseStorage(Uri uriImage) {
+        mAuth = FirebaseAuth.getInstance();
         // Создаем ссылку в Хранилище Firebase
         StorageReference riversRef = mStorageRef.child(mAuth.getCurrentUser().getUid() + "/avatar");
         // создаем uploadTask посредством вызова метода putFile(), в качестве аргумента идет созданная нами ранее Uri
@@ -133,11 +133,12 @@ public class ProfileFragment extends Fragment {
      * Метод для выгрузки имени пользователя из базы данных.
      */
     private void setUserNameFromDatabase() {
+        mAuth = FirebaseAuth.getInstance();
         String currentUid = mAuth.getCurrentUser().getUid();
         mDatabase.child("users").child(currentUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mUserNameTextView.setText(dataSnapshot.child("name").getValue().toString());
+                    mUserNameTextView.setText(dataSnapshot.child("name").getValue().toString());
             }
 
             @Override
@@ -151,6 +152,7 @@ public class ProfileFragment extends Fragment {
      * Метод для установки аватара пользователя.
      */
     private void setAvatarFromFirebaseStorage() {
+
         Glide.with(getActivity())
                 .using(new FirebaseImageLoader())
                 .load(mStorageRef.child(mAuth.getCurrentUser().getUid() + "/avatar"))

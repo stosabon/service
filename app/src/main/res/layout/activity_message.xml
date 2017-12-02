@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.myapp.android.service.ui.activity.MessageActivity">
+
+    <include layout="@layout/toolbar_actionbar" />
+
+    <fragment
+        android:id="@+id/fragment_message"
+        android:name="com.myapp.android.service.ui.fragment.MessageFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

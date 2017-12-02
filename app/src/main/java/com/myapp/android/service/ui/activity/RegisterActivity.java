@@ -1,4 +1,4 @@
-package com.myapp.android.service;
+package com.myapp.android.service.ui.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,10 +17,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import static com.myapp.android.service.EnterActivity.mAuth;
+import com.myapp.android.service.R;
+import com.myapp.android.service.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
+    /**
+     * Экземпляр firebase auth.
+     */
+    public FirebaseAuth mAuth;
 
     /**
      * Имя.
@@ -93,6 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), R.string.not_equals_passwords, Toast.LENGTH_SHORT).show();
                     return;
                 }
+                mAuth = FirebaseAuth.getInstance();
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override

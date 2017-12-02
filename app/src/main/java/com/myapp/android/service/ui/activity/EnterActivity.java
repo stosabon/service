@@ -1,4 +1,4 @@
-package com.myapp.android.service;
+package com.myapp.android.service.ui.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.myapp.android.service.R;
 
 public class EnterActivity extends AppCompatActivity {
 
@@ -22,13 +23,13 @@ public class EnterActivity extends AppCompatActivity {
     /**
      * Экземпляр firebase auth.
      */
-    public static FirebaseAuth mAuth;
+    public FirebaseAuth mAuth;
     /**
      * Обработчик событий auth.
      */
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     /**
-     * Кнопка для взода в аккаунт.
+     * Кнопка для входа в аккаунт.
      */
     private Button mSignUpButton;
     /**

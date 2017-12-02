@@ -1,18 +1,18 @@
-package com.myapp.android.service;
+package com.myapp.android.service.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.myapp.android.service.R;
+import com.myapp.android.service.adapter.ContactAdapter;
 
 /**
  * Created by pro on 18.09.2017.
@@ -38,7 +38,6 @@ public class ContactFragment extends Fragment {
         contactList.setLayoutManager(new LinearLayoutManager(getContext()));
         contactList.setAdapter(mContactAdapter);
 
-        Log.d(EnterActivity.TAG, "Адаптер поставлен");
         return v;
     }
 

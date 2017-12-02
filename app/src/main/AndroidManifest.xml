@@ -3,6 +3,7 @@
           package="com.myapp.android.service">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -12,21 +13,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".Service">
-        <activity android:name=".EnterActivity">
+        <activity android:name=".ui.activity.EnterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ResetPasswordActivity">
+        <activity android:name=".ui.activity.ResetPasswordActivity">
         </activity>
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".ui.activity.RegisterActivity">
         </activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".ui.activity.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".ui.activity.ContactActivity"></activity>
+        <activity android:name=".ui.activity.MessageActivity"></activity>
     </application>
 
 </manifest>

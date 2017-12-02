@@ -1,4 +1,4 @@
-package com.myapp.android.service;
+package com.myapp.android.service.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.myapp.android.service.R;
 
 /**
  * Created by pro on 28.08.2017.
